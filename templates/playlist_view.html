@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ playlist_name }} - Playlist</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="top-buttons">
+    <a href="/playlists" class="user-btn-top">← Back</a>
+</div>
+
+<div class="main-wrapper">
+
+    <h2 class="page-title">🎵 {{ playlist_name }}</h2>
+
+    <div class="songs-container">
+        {% if songs|length == 0 %}
+            <p style="color:#1DB954; font-size:20px;">No songs added yet.</p>
+        {% endif %}
+
+        {% for song in songs %}
+        <div class="card">
+
+            <img class="song-img" src="/static/images/{{ song[3] }}" alt="cover">
+
+            <h3>{{ song[1] }}</h3>
+
+            <audio controls>
+                <source src="/static/songs/{{ song[2] }}" type="audio/mp3">
+            </audio>
+
+            <a href="/playlist/remove/{{ song[4] }}" class="remove-btn">Remove</a>
+            <a class="download-btn" href="/download/{{ song[2] }}">Download</a>
+
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

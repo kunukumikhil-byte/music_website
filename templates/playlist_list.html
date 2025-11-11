@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Playlists</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="main-wrapper">
+
+    <div class="top-buttons">
+        <a href="/" class="user-btn-top">← Back</a>
+    </div>
+
+    <h2 class="page-title">🎵 My Playlists</h2>
+
+    <div class="songs-container">
+        {% for playlist in playlists %}
+            <a href="/playlist/{{ playlist[0] }}" class="card" style="text-decoration:none; color:white;">
+                <h3>{{ playlist[1] }}</h3>
+            </a>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

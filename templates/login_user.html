@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Login</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="auth-wrapper">
+
+    <h2 class="auth-title">Login</h2>
+
+    <div class="auth-card">
+        <form action="/login_user" method="POST">
+            <input type="text" name="username" placeholder="Enter Username" required>
+            <input type="password" name="password" placeholder="Enter Password" required>
+            <button class="auth-btn">Login</button>
+        </form>
+        <br>
+        <a href="/signup" style="color:#1DB954;">Create Account</a>
+    </div>
+
+</div>
+
+</body>
+</html>

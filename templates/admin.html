@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Upload Songs</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+    <!-- ✅ Admin Logout Button -->
+<div class="admin-top-buttons">
+    <a href="/logout" class="admin-logout-btn">Logout</a>
+</div>
+
+
+<!-- TOP RIGHT BUTTON (Back to Home) -->
+<div class="top-buttons">
+    <a href="/" class="user-btn-top">← Back</a>
+</div>
+
+<div class="main-wrapper">
+
+    <h2 class="page-title">Admin Panel – Upload / Publish / Delete</h2>
+
+    <!-- ✅ SONG UPLOAD FORM -->
+    <form action="/admin" method="post" enctype="multipart/form-data" class="admin-upload-box">
+
+        <input type="text" name="title" placeholder="Example: Perfect - Ed Sheeran 🎵" required>
+
+        <label class="admin-label">Upload Song (MP3 File)</label>
+        <input type="file" name="song" accept="audio/mp3" required>
+
+        <label class="admin-label">📸 Upload Song Title Photo (Image)</label>
+        <input type="file" name="image" accept="image/*" required>
+
+        <button type="submit" class="upload-btn">Upload Song</button>
+    </form>
+
+    <h3 class="page-title">Uploaded Songs</h3>
+
+    <!-- ✅ SONG LIST -->
+    <div class="songs-container">
+        {% for song in songs %}
+        <div class="card">
+
+            <!-- Song Cover -->
+            <img class="song-img" src="/static/images/{{ song[3] }}" alt="image">
+
+            <!-- Song Name -->
+            <h3>{{ song[1] }}</h3>
+
+            <!-- Audio Player -->
+            <audio controls>
+                <source src="/static/songs/{{ song[2] }}" type="audio/mp3">
+            </audio>
+
+            <!-- Delete Button -->
+            <a href="/delete/{{ song[0] }}" class="remove-btn">Delete</a>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Library</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="main-wrapper">
+
+    <!-- ✅ Page Title -->
+    <h2 class="page-title">🎧 Music Library</h2>
+
+
+    <!-- ✅ SEARCH BAR -->
+    <!-- ✅ SEARCH BAR WITH BUTTON -->
+<form method="get" action="/" class="search-box">
+    <input type="text" name="q" placeholder="Search Songs..." value="{{ q }}">
+    <button type="submit" class="search-btn">Search</button>
+</form>
+
+
+    <!-- ✅ PLAYLIST CREATE INPUT (ONLY WHEN LOGGED IN) -->
+    {% if session.username %}
+    <form action="/playlist/create" method="POST" class="playlist-create-box">
+        <input type="text" name="playlist_name" placeholder="Enter Playlist Name" required>
+        <button type="submit" class="playlist-create">Create</button>
+    </form>
+    {% endif %}
+
+
+    <!-- ✅ BUTTONS BELOW SEARCH BAR -->
+    <div class="action-buttons">
+
+        <a href="/playlists" class="playlist-top-btn">🎵 My Playlists</a>
+
+        {% if session.username %}
+            <a href="/admin" class="admin-btn-top">Admin</a>
+            <a href="/logout" class="user-btn-top">Logout ({{ session.username }})</a>
+        {% else %}
+            <a href="/login_user" class="user-btn-top">Login</a>
+        {% endif %}
+    </div>
+
+
+    <!-- ✅ SONG CARDS GRID -->
+    <div class="songs-container">
+
+        {% for song in songs %}
+        <div class="card">
+
+            <img class="song-img" src="/static/images/{{ song[3] }}">
+
+            <h3>{{ song[1] }}</h3>
+
+            <audio controls>
+                <source src="/static/songs/{{ song[2] }}" type="audio/mp3">
+            </audio>
+
+            <!-- ✅ Add to Playlist (If logged in) -->
+            {% if session.username %}
+            <div class="playlist-area">
+                <form action="/playlist/add/{{ song[0] }}" method="POST">
+                    <select name="playlist_id" class="playlist-select" required>
+                        <option disabled selected>Select Playlist</option>
+                        {% for p in playlists %}
+                        <option value="{{ p[0] }}">{{ p[1] }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="playlist-add">Add</button>
+                </form>
+            </div>
+            {% endif %}
+
+            <!-- ✅ Download Button -->
+            <a class="download-btn" href="/download/{{ song[2] }}">Download</a>
+
+        </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+</body>
+</html>
